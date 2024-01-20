@@ -12,3 +12,5 @@ OUTPUT
 Keycloak authorization is required before entering the application. Login with the Keycloak username and password we created earlier with Keycloak.
 ![Alt text](image-1.png)
 
+After entered the keycloak valid username and password, we got the reactjs application page !!!!!
+![Alt text](image-2.png)
