@@ -1,3 +1,4 @@
+---
 version: "3"
 services:
   keycloak:
@@ -12,8 +13,6 @@ services:
       - DB_DATABASE=keycloak
       - DB_USER=keycloak
       - DB_PASSWORD=keycloak
-        #      - KEYCLOAK_FRONTEND_URL=https://dcm4che.januo.io/
-        #      - KEYCLOAK_BASE_URL=https://dcm4che.januo.io/
       - PROXY_ADDRESS_FORWARDING=true
       - DEBUG=true
       - DEBUG_PORT='*:8787'
