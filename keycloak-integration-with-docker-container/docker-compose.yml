@@ -2,20 +2,20 @@
 version: "3"
 
 services:
-  nginx:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: nginx-rever-proxy
-    restart: always
-    image: nginx-proxy
-    ports:
-      - "80:80"
-      - "443:443"
-    networks:
-      - dcm4che
-    depends_on:
-      - keycloak
+        #  nginx:
+        #build:
+        #context: .
+        # dockerfile: Dockerfile
+        #container_name: nginx-rever-proxy
+        #restart: always
+        #image: nginx-proxy
+        #ports:
+        #- "80:80"
+        #- "443:443"
+        # networks:
+        #- dcm4che
+        #depends_on:
+        #- keycloak
 
   keycloak:
     image: jboss/keycloak
