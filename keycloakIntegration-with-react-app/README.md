@@ -27,6 +27,6 @@ After entered the keycloak valid `username` and `password`, we got the reactjs a
 6. Root URL                                    - `http://localhost:3000/` (the address of your local API app)
 7. Valid Redirect URIs                         - `http://localhost:3000/`
 8. Web Origins                                 - `http://localhost:3000/`
-9. Go to the advanced setting 
+9. Go to the `advanced setting`
 10. Proof Key for Code Exchange Code Challenge - `s256`
 11. `Save` it.
