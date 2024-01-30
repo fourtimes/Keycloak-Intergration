@@ -17,7 +17,7 @@ After entered the keycloak valid `username` and `password`, we got the reactjs a
 
 ![Alt text](image-2.png)
 
-
+## Keycloak Console `Client` Creation
 
 1. Client ID                                   - `react-client`
 2. Client Type                                 - `OpenID Connect`
