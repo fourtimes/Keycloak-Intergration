@@ -3,3 +3,9 @@
 2. Dockerfile
 3. Docker compose file
 4. ssl certificate
+
+
+## To run docker compose file
+```sh
+sudo docker compose up -d
+```
