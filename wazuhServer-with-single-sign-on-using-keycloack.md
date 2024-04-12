@@ -304,7 +304,9 @@ systemctl restart wazuh-dashboard
 
 
 
+**REFERENCE**
 
+> https://documentation.wazuh.com/current/user-manual/user-administration/single-sign-on/administrator/keycloak.html#keycloak
 
 
 
