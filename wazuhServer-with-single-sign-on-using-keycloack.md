@@ -78,7 +78,7 @@ Click on `Save` to apply the configuration.
 
 5. Create a new user.
 
-  A. Navigate to `Users` > `Add use` and fill in the required information.
+  A. Navigate to `Users` > `Add user` and fill in the required information.
 
 <img width="1148" alt="image" src="https://github.com/fourtimes/Keycloak-Intergration/assets/91359308/2b5dd8c1-4040-43bf-9b11-c18a3bd415e8">
 
@@ -101,6 +101,8 @@ Click on `Save` to apply the configuration.
    <img width="1142" alt="image" src="https://github.com/fourtimes/Keycloak-Intergration/assets/91359308/91cde1fd-50d0-471d-afab-a2bff710d896">
 
    C. In the `Wazuh-admins created group` details, go to `Role Mapping` > `Assign role` and select the `admin` role created in step 3. Click on `Assign` to apply the configuration.
+   <img width="1140" alt="image" src="https://github.com/fourtimes/Keycloak-Intergration/assets/91359308/7f7bc9c6-73d7-45a1-8be7-a2a45c9e4c7c">
+
 
 7. Configure protocol mapper.
 
