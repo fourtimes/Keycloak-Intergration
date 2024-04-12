@@ -194,7 +194,7 @@ chown wazuh-indexer:wazuh-indexer /etc/wazuh-indexer/opensearch-security/sp.meta
             sp:
               entity_id: wazuh-saml
               metadata_file: '/etc/wazuh-indexer/opensearch-security/sp.metadata.xml'
-            kibana_url: 'https://54.179.194.236'
+            kibana_url: 'https://<WAZUH_DASHBOARD_ADDRESS>'
             roles_key: Roles
             exchange_key: 'MIICmTCCAYECBgGOy+NIWTANBgkqhkiG9w0BAQsFA.........................'
       proxy_auth_domain:
@@ -212,7 +212,94 @@ chown wazuh-indexer:wazuh-indexer /etc/wazuh-indexer/opensearch-security/sp.meta
           type: noop
 ```
 
+Ensure to change the following parameters to their corresponding value:
+  - idp.metadata_file
+  - idp.entity_id
+  - sp.entity_id
+  - sp.metadata_file
+  - kibana_url
+  - roles_key
+  - exchange_key
 
+3. Run the `securityadmin` script to load the configuration changes made in the `config.yml` file.
+```sh
+export JAVA_HOME=/usr/share/wazuh-indexer/jdk/ && bash /usr/share/wazuh-indexer/plugins/opensearch-security/tools/securityadmin.sh -f /etc/wazuh-indexer/opensearch-security/config.yml -icl -key /etc/wazuh-indexer/certs/admin-key.pem -cert /etc/wazuh-indexer/certs/admin.pem -cacert /etc/wazuh-indexer/certs/root-ca.pem -h localhost -nhnv
+```
+The command output must be similar to the following:
+```
+Security Admin v7
+Will connect to localhost:9200 ... done
+Connected as "CN=admin,OU=Wazuh,O=Wazuh,L=California,C=US"
+OpenSearch Version: 2.8.0
+Contacting opensearch cluster 'opensearch' and wait for YELLOW clusterstate ...
+Clustername: wazuh-cluster
+Clusterstate: GREEN
+Number of nodes: 1
+Number of data nodes: 1
+.opendistro_security index already exists, so we do not need to create one.
+Populate config from /etc/wazuh-indexer/opensearch-security
+Will update '/config' with /etc/wazuh-indexer/opensearch-security/config.yml
+   SUCC: Configuration for 'config' created or updated
+SUCC: Expected 1 config types for node {"updated_config_types":["config"],"updated_config_size":1,"message":null} is 1 (["config"]) due to: null
+Done with success
+```
+
+4. Edit the `/etc/wazuh-indexer/opensearch-security/roles_mapping.yml` file and change the following values:
+```yml
+all_access:
+  reserved: false
+  hidden: false
+  backend_roles:
+  - "admin"
+```
+5. Run the `securityadmin` script to load the configuration changes made in the `roles_mapping.yml` file.
+```sh
+export JAVA_HOME=/usr/share/wazuh-indexer/jdk/ && bash /usr/share/wazuh-indexer/plugins/opensearch-security/tools/securityadmin.sh -f /etc/wazuh-indexer/opensearch-security/roles_mapping.yml -icl -key /etc/wazuh-indexer/certs/admin-key.pem -cert /etc/wazuh-indexer/certs/admin.pem -cacert /etc/wazuh-indexer/certs/root-ca.pem -h localhost -nhnv
+```
+The command output must be similar to the following:
+```
+Security Admin v7
+Will connect to localhost:9200 ... done
+Connected as "CN=admin,OU=Wazuh,O=Wazuh,L=California,C=US"
+OpenSearch Version: 2.8.0
+Contacting opensearch cluster 'opensearch' and wait for YELLOW clusterstate ...
+Clustername: wazuh-cluster
+Clusterstate: GREEN
+Number of nodes: 1
+Number of data nodes: 1
+.opendistro_security index already exists, so we do not need to create one.
+Populate config from /etc/wazuh-indexer/opensearch-security
+Will update '/rolesmapping' with /etc/wazuh-indexer/opensearch-security/roles_mapping.yml
+   SUCC: Configuration for 'rolesmapping' created or updated
+SUCC: Expected 1 config types for node {"updated_config_types":["rolesmapping"],"updated_config_size":1,"message":null} is 1 (["rolesmapping"]) due to: null
+Done with success
+```
+## `Wazuh dashboard configuration`
+1. Check the value of `run_as` in the `/usr/share/wazuh-dashboard/data/wazuh/config/wazuh.yml` configuration file. If `run_as` is set to `false`, proceed to the next step. 
+```yml
+hosts:
+  - default:
+      url: https://localhost
+      port: 55000
+      username: wazuh-wui
+      password: "<wazuh-wui-password>"
+      run_as: false
+```
+2. Edit the Wazuh dashboard configuration file. Add these configurations to `/etc/wazuh-dashboard/opensearch_dashboards.yml`. We recommend that you back up these files before you carry out the configuration.
+```sh
+opensearch_security.auth.type: "saml"
+server.xsrf.allowlist: ["/_opendistro/_security/saml/acs", "/_opendistro/_security/saml/logout", "/_opendistro/_security/saml/acs/idpinitiated"]
+opensearch_security.session.keepalive: false
+```
+3. Restart the Wazuh dashboard service using this command:
+```sh
+systemctl restart wazuh-dashboard
+```
+4. Test the configuration. Go to your `Wazuh dashboard URL` and log in with your Keycloak account with the keycloak `user` with `password`.
+
+<img width="1469" alt="image" src="https://github.com/fourtimes/Keycloak-Intergration/assets/91359308/bca706e5-f98e-4647-bb42-dc56cca45695">
+
+<img width="1469" alt="image" src="https://github.com/fourtimes/Keycloak-Intergration/assets/91359308/cc7b42e6-a01f-4320-ace5-b1807f915438">
 
 
 
