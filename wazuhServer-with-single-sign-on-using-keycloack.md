@@ -26,7 +26,7 @@ You can leave the rest of the values as default. Click **`Save`** to apply the c
 
 3. Configure client settings.
 
-    A. Navigate to `Clients` > `Settings` and ensure the Enabled button is turned on. Complete the section with these parameters:
+    A. Navigate to `Clients` > `Settings` and ensure the `Enabled` button is turned on. Complete the section with these parameters:
 
     - Client ID: `wazuh-saml`
     - Name: `Wazuh SSO`
