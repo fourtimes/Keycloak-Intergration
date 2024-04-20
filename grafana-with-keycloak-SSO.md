@@ -32,8 +32,26 @@ services:
       GF_SESSION_LIFETIME: "3600" # Session lifetime in seconds, e.g., 1 hour
       GF_STRICT_FLUSH_INTERVAL: "true"
 ```
-Note:
-In this grafana SSO, we must create client under the client type `OpenID Connect`
 
-Reference:
-https://stackoverflow.com/questions/68741412/grafana-generic-oauth-role-assignment
+   
+<img width="1469" alt="image" src="https://github.com/fourtimes/Keycloak-Intergration/assets/91359308/29a62bd7-791c-4874-b0dc-3d5cdc16b6f2">
+
+_Note:_
+> [!TIP]
+> In this grafana SSO, we must create clients under the client type `OpenID Connect`
+> 
+> Based on your keycloak Realm we must change the variable below in the yaml file
+> 
+    - GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
+    - GF_AUTH_GENERIC_OAUTH_AUTH_URL
+    - GF_AUTH_GENERIC_OAUTH_TOKEN_URL
+    - GF_AUTH_GENERIC_OAUTH_API_URL
+    - GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH
+    - GF_AUTH_GENERIC_OAUTH_LOGOUT_URL
+
+
+
+> [!IMPORTANT]
+> https://stackoverflow.com/questions/68741412/grafana-generic-oauth-role-assignment
+
+
