@@ -1,4 +1,4 @@
-# Grafana with KeyCloak SingleSignOn Implemention using docker
+# Grafana with KeyCloak SingleSignOn Implemention using Docker
 ```yml
 ---
 version: '3'
