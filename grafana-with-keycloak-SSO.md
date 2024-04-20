@@ -1,4 +1,4 @@
-# Grafana with KeyCloak SingleSignOn Implemention using Docker
+# 1. Grafana with KeyCloak SingleSignOn Implemention using Docker
 ```yml
 ---
 version: '3'
@@ -55,3 +55,56 @@ _Note:_
 > https://stackoverflow.com/questions/68741412/grafana-generic-oauth-role-assignment
 
 
+
+# 2. Grafana as a service with KeyCloak SingleSignOn Implemention
+1. Install grafana in ubuntu
+2. Create a file - grafana.sh. Add the below line inside the file.
+ ```sh
+#!/bin/bash
+
+sudo apt-get install -y software-properties-common
+sudo add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
+wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install -y grafana
+sudo systemctl start grafana-server
+sudo systemctl enable grafana-server
+sudo systemctl status grafana-server
+```
+
+3. change the permission
+```sh
+sudo chmod +x grafana.sh
+```
+4. execute the file
+```sh
+./grafana.sh
+```
+5. Create the `Client` in the keycloak console and configure the client.
+5. Add the keycloak configuration in grafana service
+    - Create the ini file `sudo vim /etc/grafana/grafana.ini`
+```ini
+[server]
+root_url = http://3.85.125.143:3000
+
+[auth.generic_oauth]
+enabled = true
+name = Keycloak-OAuth
+allow_sign_up = true
+client_id = grafana-dashboard-client
+client_secret = h1UEkI7694zjC2dPRTpGhz75XwgL24u8
+scopes = openid profile email
+auth_url = https://keycloak.fourcodes.net/realms/fourcodes/protocol/openid-connect/auth
+token_url = https://keycloak.fourcodes.net/realms/fourcodes/protocol/openid-connect/token
+api_url = https://keycloak.fourcodes.net/realms/fourcodes/protocol/openid-connect/userinfo
+role_attribute_path = contains(realm_access.roles[*], 'admin') && 'Admin' || contains(realm_access.roles[*], 'editor') && 'Editor' || 'Viewer'  
+groups_attribute_path = groups
+logout_redirect_url = https://keycloak.fourcodes.net/realms/fourcodes/protocol/openid-connect/logout
+```
+6.  Go to the browser. Enter this url -  `http://3.85.125.143:3000`
+
+<img width="1464" alt="image" src="https://github.com/fourtimes/Keycloak-Intergration/assets/91359308/66dc0f21-dd40-46f7-b34c-91be162e9512">
+
+Reference
+
+https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/keycloak/#teamsync
