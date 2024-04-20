@@ -13,7 +13,7 @@ services:
       GF_SECURITY_ADMIN_USER: admin
       GF_SECURITY_ADMIN_PASSWORD: admin
       GF_SERVER_DOMAIN: "grafana-dashboard-client"
-      GF_SERVER_ROOT_URL: "http://3.85.125.143:3000"
+      GF_SERVER_ROOT_URL: "http://(public-ip):3000"
       GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
       GF_AUTH_GENERIC_OAUTH_NAME: "SingleSignOn"
       GF_AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP: "true"
@@ -24,7 +24,7 @@ services:
       GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "https://keycloak.fourcodes.net/realms/fourcodes/protocol/openid-connect/token"
       GF_AUTH_GENERIC_OAUTH_API_URL: "https://keycloak.fourcodes.net/realms/fourcodes/protocol/openid-connect/userinfo"
       GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH: contains(realm_access.roles[*], 'admin') && 'Admin' || contains(realm_access.roles[*], 'editor') && 'Editor' || 'Viewer'
-      GF_AUTH_GENERIC_OAUTH_REDIRECT_URL: "http://3.85.125.143:3000/oauth/callback"
+      GF_AUTH_GENERIC_OAUTH_REDIRECT_URL: "http://(public-ip):3000/oauth/callback"
       GF_AUTH_GENERIC_OAUTH_LOGOUT_URL: "https://keycloak.fourcodes.net/realms/fourcodes/protocol/openid-connect/logout"
       # Additional session handling settings
       GF_SESSION_COOKIE_SECURE: "true"
