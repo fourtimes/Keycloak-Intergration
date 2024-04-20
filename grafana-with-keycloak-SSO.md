@@ -81,7 +81,13 @@ sudo chmod +x grafana.sh
 ./grafana.sh
 ```
 5. Create the `Client` in the keycloak console and configure the client.
-5. Add the keycloak configuration in grafana service
+
+_Note:_
+> [!TIP]
+> In this grafana SSO, we must create clients under the client type `OpenID Connect`
+
+6. Add the keycloak configuration in grafana service
+
     - Create the ini file `sudo vim /etc/grafana/grafana.ini`
 ```ini
 [server]
@@ -101,7 +107,7 @@ role_attribute_path = contains(realm_access.roles[*], 'admin') && 'Admin' || con
 groups_attribute_path = groups
 logout_redirect_url = https://keycloak.fourcodes.net/realms/fourcodes/protocol/openid-connect/logout
 ```
-6.  Go to the browser. Enter this url -  `http://3.85.125.143:3000`
+7.  Go to the browser. Enter this url -  `http://3.85.125.143:3000`
 
 <img width="1464" alt="image" src="https://github.com/fourtimes/Keycloak-Intergration/assets/91359308/66dc0f21-dd40-46f7-b34c-91be162e9512">
 
