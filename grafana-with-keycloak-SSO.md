@@ -97,6 +97,7 @@ root_url = http://3.85.125.143:3000
 enabled = true
 name = Keycloak-OAuth
 allow_sign_up = true
+tls_skip_verify_insecure = true
 client_id = grafana-dashboard-client
 client_secret = h1UEkI7694zjC2dPRTpGhz75XwgL24u8
 scopes = openid profile email
