@@ -96,17 +96,23 @@ root_url = http://3.85.125.143:3000
 [auth.generic_oauth]
 enabled = true
 name = Keycloak-OAuth
+auto_login = false
 allow_sign_up = true
 tls_skip_verify_insecure = true
-client_id = grafana-dashboard-client
-client_secret = h1UEkI7694zjC2dPRTpGhz75XwgL24u8
-scopes = openid profile email
-auth_url = https://keycloak.fourcodes.net/realms/fourcodes/protocol/openid-connect/auth
-token_url = https://keycloak.fourcodes.net/realms/fourcodes/protocol/openid-connect/token
-api_url = https://keycloak.fourcodes.net/realms/fourcodes/protocol/openid-connect/userinfo
-role_attribute_path = contains(realm_access.roles[*], 'admin') && 'Admin' || contains(realm_access.roles[*], 'editor') && 'Editor' || 'Viewer'  
+client_id = fourcodes-org-grafana-client
+client_secret = yYKyLWtYVXQBFZAKYGXHteoctlrCnnJB
+scopes = openid profile email roles
+email_attribute_path = email
+login_attribute_path = username
+name_attribute_path = full_name
+auth_url = https://keycloak.fourcodes.net/realms/fourcodes-org/protocol/openid-connect/auth
+token_url = https://keycloak.fourcodes.net/realms/fourcodes-org/protocol/openid-connect/token
+api_url = https://keycloak.fourcodes.net/realms/fourcodes-org/protocol/openid-connect/userinfo
+role_attribute_path = contains(realm_access.roles[*], 'grafana_admin_role') && 'Admin' || contains(realm_access.roles[*], 'grafana_editor_role') && 'Editor' || 'Viewer'  
 groups_attribute_path = groups
-logout_redirect_url = https://keycloak.fourcodes.net/realms/fourcodes/protocol/openid-connect/logout
+logout_redirect_url = https://keycloak.fourcodes.net/realms/fourcodes-org/protocol/openid-connect/logout
+
+
 ```
 7.  Go to the browser. Enter this url -  `http://3.85.125.143:3000`
 
